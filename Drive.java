@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.kickoff2018;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Drive {
     private final DcMotor lf;
@@ -9,11 +8,16 @@ public class Drive {
     private final DcMotor rf;
     private final DcMotor rb;
 
-    public Drive(HardwareMap hMap){
+    public Drive(LinearOpMode opMode){
         lf = hMap.dcMotor.get("lf");
         lb = hMap.dcMotor.get("lb");
         rf = hMap.dcMotor.get("rf");
         rb = hMap.dcMotor.get("rb");
+
+        rf.setDirection(DcMotorSimple.Direction.REVERSE);
+        rb.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        resetEncoders();
     }
 
     private void powerLeft(double power){
@@ -29,5 +33,18 @@ public class Drive {
     public void power(double left, double right){
         powerLeft(left);
         powerRight(right);
+    }
+
+    public void resetEncoders(){
+        setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        opMode.idle();
+        setRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    private void setRunMode(DcMotor.RunMode mode){
+        lf.setMode(mode);
+        lb.setMode(mode);
+        rf.setMode(mode);
+        rb.setMode(mode);
     }
 }
