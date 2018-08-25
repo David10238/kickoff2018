@@ -16,12 +16,12 @@ public class Drive {
         rb = hMap.dcMotor.get("rb");
     }
 
-    public void powerLeft(double power){
+    private void powerLeft(double power){
         lf.setPower(power);
         lb.setPower(power);
     }
 
-    public void powerRight(double power){
+    private void powerRight(double power){
         rf.setPower(power);
         rb.setPower(power);
     }
